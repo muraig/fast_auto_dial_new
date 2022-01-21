@@ -5,7 +5,6 @@
 """
 # ##############################################################################
 #  Copyright (c) 2021.
-# 
 #  Projects from AndreyM                                   #
 #  The best encoder in the world!                                              #
 #  email: muraigtor@gmail.com                                                         #
@@ -17,11 +16,11 @@ import uuid
 import zipfile
 import io
 
-import aiofiles
 import asyncio
 from pydantic import BaseModel, Field
 from pathlib import Path as Paths
 from typing import List, Optional
+import aiofiles
 
 from fastapi import Form
 from fastapi import UploadFile, File
@@ -65,7 +64,6 @@ DIR_SOUND = Settings(_env_file=env, _env_file_encoding='utf-8').DIRSOUND
 TMP_SOUND = './tmp/'
 FILENAME = "/home/andrei/PycharmProjects/web_realtime_streaming/other/some_other_file.tsv"
 
-
 #######################################################################
 auto_router = APIRouter()
 
@@ -87,11 +85,13 @@ def form_body(cls):
     )
     return cls
 
+
 @form_body
 class VariaBle(BaseModel):
     Input_text: str  # Привет!
     forms: str
     files: str
+
 
 @form_body
 class AutoDial(BaseModel):
@@ -101,12 +101,14 @@ class AutoDial(BaseModel):
     formdial2: str
     formdial3: str
 
+
 @form_body
 class TypeDial(BaseModel):
     typeautodial: Optional[str] = Field()
     # typeautodial: str
     # typedi: str = Field(...,)
     # token_type: Optional[str] = "bearer"
+
 
 class NewJobForm(BaseModel):
     name: str = Field(..., )
@@ -117,6 +119,7 @@ class NewJobForm(BaseModel):
     location: str = Field(..., )
     work_type: str = Field(..., )
 
+
 #######################################################################
 # Фейковые классы  для формирования ответов сервера
 # на данный момент - не задействовано #
@@ -124,8 +127,10 @@ class NewJobForm(BaseModel):
 class model200(BaseModel):
     message: str = "Ok!"
 
+
 class model404(BaseModel):
     message: str = "oppa..."
+
 
 class model500(BaseModel):
     message: str = "mlya...."
@@ -146,6 +151,8 @@ async def form_post(request: Request):
 
 ####### Страница для просмотра типа автообзвона и остальными функциями приложения #######
 ''' Для создания Stasis приложения GET запрос'''
+
+
 @auto_router.get("/auto/form")
 async def form_get_post(request: Request, phone: Optional[str] = Query(None, max_length=50)):
     """
@@ -185,6 +192,8 @@ async def form_get_post(request: Request, phone: Optional[str] = Query(None, max
 
 
 ''' Для создания вызова в Приложение автообзвона Post запрос '''
+
+
 @auto_router.post("/auto/phones", response_model=TypeDial)
 async def form_post(phone: int = Form(...), form: TypeDial = Depends(), ):
     """
@@ -217,6 +226,8 @@ async def form_post(phone: int = Form(...), form: TypeDial = Depends(), ):
 
 
 ''' Для остановки задачи автообзвона Post запрос '''
+
+
 @auto_router.post("/auto/stop/")
 async def form_get_post_stop(autodial: Optional[str] = Form(None)):
     """
@@ -287,6 +298,8 @@ async def form_get_post_stop(autodial: Optional[str] = Form(None)):
 
 
 ''' Для создания типа автообзвона Post запрос '''  # 200: {"response": model200},
+
+
 @auto_router.post("/auto/form", responses={404: {"response": model404}, 500: {"response": model500}})
 async def form_post_post(request: Request, typeauto: str = Form(...)):
     """
@@ -352,6 +365,8 @@ async def form_post_post(request: Request, typeauto: str = Form(...)):
 
 ###############################################################################
 ''' Функция создания автообзвона созданием задачи на данный момент - не задействовано '''
+
+
 async def _form_post_post(request, typeauto):
     timeout = 1
 
@@ -668,9 +683,10 @@ async def favicon(request: Request):
 ########## chat ##########################
 messages = []  # List of chat messages
 
-
 # Class for connecting the client with the webSocket
 ''' Класс для создания подключения к сокету и создания broadcast-сервера '''
+
+
 class ConnectionManager:
     def __init__(self):
         self.active_connections: List[WebSocket] = []

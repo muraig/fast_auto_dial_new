@@ -55,6 +55,8 @@ env = Paths(__file__).parent.parent.parent.joinpath('.env')
 FILENAME = Paths(__file__).parent.parent.parent.joinpath("_filecsv.csv")
 
 ''' Функция для создания вызова(эмуляция сервера автообзвона с базой клиентов)'''
+
+
 async def create_and_maintain_channel(_env, typeautodial, _phone, _channel_id):
     """
 
@@ -144,6 +146,8 @@ async def create_and_maintain_channel(_env, typeautodial, _phone, _channel_id):
 ''' Получение данных из внешнего источника
     реализовано путем чтения файла формата csv и извлечения из него 
     определнных полей с данными '''
+
+
 async def async_receiving_customer_data(phone):
     """
 
@@ -180,6 +184,8 @@ async def async_receiving_customer_data(phone):
 
 
 '''Проверка сществования Stasis приложения'''
+
+
 async def check_applications(_env):
     """
 
@@ -209,6 +215,8 @@ async def check_applications(_env):
 
 
 '''Отправка данных в сопрограммы'''
+
+
 async def curl_request(ws_push, ws_data=None, ev=None, ):
     """
 
@@ -243,6 +251,8 @@ async def curl_request(ws_push, ws_data=None, ev=None, ):
 
 
 '''Проверка наличия и создание голосовых файлов'''
+
+
 class CheckingAvailabilityCreatingContract:
     """
     Класс для формирования голосовых файлов
@@ -339,6 +349,8 @@ class CheckingAvailabilityCreatingContract:
 
 ''' Класс:: 
     Формирование структуры автообзвона, а также списка звуковых файлов'''
+
+
 class ReceivingCustomerData:
     """
     Класс для получения данных о клиентах
@@ -479,6 +491,8 @@ class ReceivingCustomerData:
 
 ''' Определение типа автообзвона и постановка задачи по их исполнению
     Возвращает список файлов для отправки задачи в Астериск'''
+
+
 async def checking_job_type(phone, path_to_config_file, ev, ws_push, env_, data):
     """
     Создаем объект - класс с методами:
@@ -591,6 +605,8 @@ async def checking_job_type(phone, path_to_config_file, ev, ws_push, env_, data)
 ''' Класс::
     Обслуживание получаемых из Астериска данных.
     Постановка задачи для их реализации'''
+
+
 class ARIInterface:
     """ Класс для обработки состояний вызова.
     Команды применяются для канала с идентификатором, получаемый от Астериска """
@@ -883,6 +899,8 @@ class ARIInterface:
     Создание приложения в Астериске типа Stasis.
     Получение данных из Астериска
     Формирование задач по обслуживанию вызова, поступившего в приложение'''
+
+
 class ARIApp(object):
     """ Класс для создания канала обмена данными с Астериском, типа websocket.
     В зависимости от получаемых данных выполяются определенные команды,

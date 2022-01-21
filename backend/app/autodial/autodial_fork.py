@@ -32,7 +32,8 @@ loop.run_until_complete(asyncio.gather(while_loop(), some_func())) запуст�
 asyncio.gather может использоваться для ожидания нескольких сопрограмм одновременно.
 Для более точной настройки ожидания см asyncio.wait. Также .
 
-Поскольку одна из ваших сопрограмм работает вечно, последние два параметра будут эквивалентны и приведут к ожидаемому результату.
+Поскольку одна из ваших сопрограмм работает вечно, последние два параметра будут эквивалентны и приведут
+к ожидаемому результату.
 """
 
 import os
@@ -45,7 +46,6 @@ import asyncio
 
 from app.config.custom_logging import CustomizeLogger
 from app.autodial.autodial_apps import ARIApp
-
 
 try:
     config_path = Paths(__file__).parent.parent.joinpath('config').joinpath("logging_config.json")
@@ -81,7 +81,7 @@ async def create_connection_to_the_asterisk(typeauto=None):
         logger.debug(f"DEBUG::create_connection_to_the_asterisk: {code}")
     except Exception as e:
         logger.exception(f"Exception: {e}")
-    #print(f"Запущена задача с PID'ом: {results}")
+    # print(f"Запущена задача с PID'ом: {results}")
 
     return results
 
@@ -103,10 +103,11 @@ async def future_task(typeauto=None, loop=None, timeout=None):
 
     return future
 
+
 if __name__ == '__main__':
     with suppress(KeyboardInterrupt):
-        #date = asyncio.run(get_date(), debug=True)
+        # date = asyncio.run(get_date(), debug=True)
         date = asyncio.run(future_task('urliz'), debug=True)
-        #date = asyncio.threads.
+        # date = asyncio.threads.
         # выводим результат работы
         print(f"Current date: {date}")

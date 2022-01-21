@@ -29,11 +29,11 @@ from app.config.custom_logging import CustomizeLogger
 from app.autodial import fastapi_autodial as fastapi_auto_dial
 from app.api.api_v1.routers.users import users_router
 from app.api.api_v1.routers.auth import auth_router
-from app.core import config
-from app.db.session import SessionLocal
+# from app.core import config
+# from app.db.session import SessionLocal
 from app.core.auth import get_current_active_user
 from app.core.celery_app import celery_app
-from app import tasks
+# from app import tasks
 from app.core.config import settings
 
 env = Paths(__file__).parent.parent.joinpath('.env')
@@ -55,7 +55,8 @@ except Exception as e:
 logger = CustomizeLogger.customize_logging(
     'log_fastapi_full_stack.log', 'debug', '20 days', '1 months',
     '<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green>'
-    ' request id: {extra[request_id]} - <cyan>{name}</cyan>:<light-blue>{function}</light-blue>:<red>{line}</red> - <level>{message}</level>'
+    ' request id: {extra[request_id]} - <cyan>{name}</cyan>:<light-blue>{function}</light-blue>:<red>{line}</red>
+     - <level>{message}</level>'
     )'''
 logger = CustomizeLogger.make_logger(config_path)
 uvicorn_log_config = uvicorn.config.LOGGING_CONFIG
@@ -186,6 +187,7 @@ if settings.BACKEND_CORS_ORIGINS:
         allow_headers=["*"],
     )
 
+
 # logger.info(f"app.middleware(): {midlew}")
 
 
@@ -230,9 +232,9 @@ def handle_exception(loop, context):
     asyncio.create_task(shutdown(loop))
 
 
-async def shutdown(loop, signal=None):
-    if signal:
-        await logger.info(f"Received exit signal {signal.name}...")
+async def shutdown(loop, signal_=None):
+    if signal_:
+        await logger.info(f"Received exit signal {signal_.name}...")
     await logger.info("Closing database connections")
     await logger.info("Nacking outstanding messages")
     tasks = [t for t in asyncio.all_tasks() if t is not asyncio.current_task()]
@@ -254,7 +256,7 @@ def main():
     signals = (signal.SIGHUP, signal.SIGTERM, signal.SIGINT)
     for s in signals:
         loop.add_signal_handler(
-            s, lambda s=s: asyncio.create_task(shutdown(loop, signal=s))
+            s, lambda s_=s: asyncio.create_task(shutdown(loop, signal_=s_))
         )
     loop.set_exception_handler(handle_exception)
 
@@ -271,6 +273,6 @@ def main():
 
 if __name__ == "__main__":
     '''log_config = uvicorn.config.LOGGING_CONFIG
-    log_config["formatters"]["access"]["fmt"] = "%(asctime)s - %(levelname)s - %(message)s"
+    log_config["formatters"]["access"]["fmt"] = "%(asctime)s_ - %(levelname)s_ - %(message)s_"
     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8888, log_config=log_config)'''
     uvicorn.run("main:app", host="0.0.0.0", reload=True, port=8888, log_config=uvicorn_log_config)
