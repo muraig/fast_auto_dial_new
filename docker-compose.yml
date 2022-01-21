@@ -1,0 +1,71 @@
+version: '3.3'
+services:
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    # Using the below image instead is required to enable the "Broker" tab in the flower UI:
+    # image: rabbitmq:3-management
+    #
+    # You also have to change the flower command
+    #networks:
+    #- deployml_network
+    ports:
+    - 5672:5672
+    - 5673:5673
+    - 15672:15672
+
+  postgres:
+    image: postgres:12
+    restart: always
+    env_file:
+      - .env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    environment:
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    ports:
+      - '5432:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data:cached
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    links:
+      - "postgres:pgsql-server"
+    ports: 
+      - 5050:8080
+      - 5051:443
+
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    command: python app/main.py
+    ports:
+        - 8888:8888
+    tty: true
+    volumes:
+      - ./backend:/app/:cached
+      - ./.docker/.ipython:/root/.ipython:cached
+      - /var/lib/asterisk/sounds/autodial:/var/lib/asterisk/sounds/autodial
+      - /var/lib/asterisk/sounds/ru/autodialer:/var/lib/asterisk/sounds/ru/autodialer
+    environment:
+      PYTHONPATH: .
+      DATABASE_URL: 'postgresql://postgres:postgres@postgres:5432/postgres'
+    depends_on:
+      - "postgres"
+
+volumes:
+  db-data:

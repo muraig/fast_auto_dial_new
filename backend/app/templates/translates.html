@@ -1,0 +1,490 @@
+<!--
+  ~ Copyright (c) 2021.
+  ~ Projects from AndreyM
+  ~ The best encoder in the world!
+  ~ email: muraig@ya.ru
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Translate</title>
+    <link rel="stylesheet" href="/static/semantic-ui-css/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/static/semantic-ui-css/semantic.min.js"></script>
+    <script src="/static/js/txta.js"></script>
+
+    <!--<style type="text/css">
+    .output_translation{
+    font-size: 1em;
+    }
+    .ul_left{
+    text-align: left;
+    }
+    .selection.list {
+    float: left;
+    padding: 10px;
+    }
+    .ui.divider {
+    float: left;
+    width: 100%;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    }
+    .button {
+    margin-top: 17px;
+    }
+    .form-control {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    }
+    .list_width {
+        width: 100%;
+    }
+    .left {
+        float: left;
+        list-style-type: none;
+        margin-left: 5px;
+        width: 170px;
+    }
+    .divbottom {
+        overflow: hidden;
+        overflow: overlay;
+        width: 100%;
+        padding: 10px;
+    }
+    ul {
+    margin-top: 0px;
+    padding-inline-start: 5px;
+    }
+</style>-->
+
+    <style type="text/css">
+    .back {
+      width: 600px;
+      height: 360px;
+      background: #ccc;
+    }
+    .abs {
+      position: absolute;
+    }
+    .block {
+      top: 26px;
+      left: 50px;
+      right: 40px;
+      bottom: 20px;
+      display: none;
+    }
+    ul.circle {
+      list-style-type:none;
+      top: 284px;
+      left: 98px;
+    }
+    ul {
+      list-style-type:none;
+      top: 273px;
+      left: 114px;
+      padding-left: 10px;
+    }
+    li {
+      //font-size: 24px;
+      display: inline;
+      padding-right: 36px;
+    }
+    ul.circle li {
+      border-radius: 30px;
+      background-color: #fff;
+      border: 2px solid #222;
+      font-size: 28px;
+      padding-right: 56px;
+      padding-top: 24px;
+      margin-right: 10px;
+      display: inline;
+    }
+    a {
+      text-decoration: none;
+      color: #222;
+      margin-right: 20px;
+    }
+    a:hover {
+      color: #000;
+    }
+    a:visited {
+      font-weight: bold;
+    }
+    .tabs {
+      background: #ededed;
+      font-family: monostace;
+      top: 58px;
+      width: 520px;
+      height: 270px;
+    }
+    .tabs p {
+      top: 16px;
+      font-family: monostace;
+    }
+    p {
+      font-size: 44px;
+      font-family: monostace;
+      top: 48px;
+      left: 70px;
+      color: #aaa;
+      line-height: 44px;
+    }
+    #speech {
+      display: block;
+    }
+    div:target {
+      display: block;
+    }
+    div[id*=tab]:target {
+      display: block;
+    }
+    div[id*=tab]:target ~ #tab {
+      display: block;
+    }
+    div[id*=t]:target ~ #speech {
+      display: none;
+    }
+    .block_text {
+      display: block;
+    }
+    input, label{
+      display:block;
+    }
+    .selection.list.list_width {
+      float: none;
+    }
+    .selection.list {
+      float: left;
+      padding: 0px 10px;
+    }
+    .selection {
+    }
+    .list {
+    }
+    .form-output {
+      float: left;
+    }
+    .form-input {
+      max-width: 800px;
+    }
+    .button {
+        //background-color: #4CAF50;
+        border: none;
+        //color: white;
+        //padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin: 0px;
+        background: #4CAF50;
+    }
+    .selection button:hover {
+      background: #0078BF; color: #fff;
+    }
+    .ul_left li {
+        font-size: 14px;
+        list-style-type: none;
+        box-sizing: inherit;
+        display: inline;
+        display: block;
+        //padding-right: 36px;
+        color: #1398d0;
+    }
+    A:hover {
+      text-decoration: underline; /* Добавляем подчеркивание при наведении курсора на ссылку */
+      color: red; /* Ссылка красного цвета */
+    }
+    a {
+        display: inline-block;
+        //color:#ffeb3b;
+        color: #686868;
+        line-height: 1;
+        text-decoration:none;
+        cursor: pointer;
+        position:relative;
+        border: none;
+    }
+    a:after {
+        background-color: #ffeb3b;
+        display: block;
+        content: "";
+        height: 2px;
+        width: 0%;
+        left:50%;
+        position:absolute;
+        -webkit-transition: width .3s ease-in-out;
+        -moz--transition: width .3s ease-in-out;
+        transition: width .3s ease-in-out;
+        -webkit-transform:translateX(-50%);
+        -moz-transform:translateX(-50%);
+        transform:translateX(-50%);
+    }
+    a:hover:after,
+    a:focus:after {
+        width: 100%;
+    }
+
+    main {
+      text-align: center;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+
+    textarea {
+      color: #444;
+      padding: 5px;
+    }
+
+    /* TEXTAREA AUTO RESIZE STYLES BEGIN */
+
+    /* The .hiddendiv styles are added with JS.
+       You can remove the JS lines and use CSS instead
+    .hiddendiv {
+      display: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }*/
+
+    /* the styles for 'txta' are applied to both the textarea and the hidden clone */
+    /* these must be the same for both */
+    .txta {
+      width: 100%;
+      max-width: 500px;
+      min-height: 100px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      overflow: hidden;
+      line-height: 1.4;
+      max-width: 800px;
+    }
+    /* TEXTAREA AUTO RESIZE STYLES END */
+
+    </style>
+
+</head>
+<body>
+
+<div class="ui container">
+
+    <div id="two" class="abs block">
+        <b><a href="#speech">#СинтезЯндекс</a></b>
+        <a href="#two">#СинтезТекст</a>
+
+        <form action="/auto/textarea1" method="post">
+            <div class="form-output">
+                <h1>Создание файла, характеризующий тип программы автодозвона</h1>
+                <ul>
+                    <li>persons_300_3000 - Файл для физиков от 300руб до 3000руб</li>
+                    <li>persons_3000 - Файл для физиков от 3000руб с судебным</li>
+                    <li>legal - Файл для юриков</li>
+                </ul>
+                <div class="selection list">
+                    <ul>
+                        <li class="left"><label for="TextareaInputName">Файл - тип обзвона+.txt</label>
+                            <textarea class="form-control" name="Input_text_File" id="TextareaInputName" rows="1"></textarea></li>
+                        <li class="left"><label for="TextareaInputAdial">Тип обзвона</label>
+                            <textarea class="form-control" name="Input_textAdial" id="TextareaInputAdial" rows="1"></textarea></li>
+                        <li class="left"><label for="format1">Выбрать первый файл:</label><br/>
+                            <select name="formdial1" id="format1">
+                                {% for k in list_dir['files'] %}
+                                {% if "1_" in k %}
+                                {% set selected = "selected" %}
+                                <option selected="{{ selected }}" value="{{k}}">{{k}}</option>
+                                {% else %}
+                                <option value="{{k}}">{{k}}</option>
+                                {% set row_class = "error" %}
+                                {% endif %}
+                                {% endfor %}
+                            </select></li>
+                        <li class="left" style="margin-left: 20px;"><label for="format2">Выбрать второй файл:</label><br/>
+                            <select name="formdial2" id="format2">
+                                {% for k in list_dir['files'] %}
+                                {% if "2_" in k %}
+                                {% set selected = "selected" %}
+                                <option selected="{{ selected }}" value="{{k}}">{{k}}</option>
+                                {% else %}
+                                <option value="{{k}}">{{k}}</option>
+                                {% set row_class = "error" %}
+                                {% endif %}
+                                {% endfor %}
+                            </select></li>
+                        <li class="left" style="margin-left: 20px;"><label for="format3">Выбрать третий файл:</label><br/>
+                            <select name="formdial3" id="format3">
+                                {% for k in list_dir['files'] %}
+                                {% if "2_" in k %}
+                                {% set selected = "selected" %}
+                                <option selected="{{ selected }}" value="{{k}}">{{k}}</option>
+                                {% else %}
+                                <option value="{{k}}">{{k}}</option>
+                                {% set row_class = "error" %}
+                                {% endif %}
+                                {% endfor %}
+                            </select></li>
+                    </ul>
+                </div>
+                <div class="selection list">
+                    <button type="Submit" class="button">Синтезировать</button>
+                </div>
+                {% if autodial %}
+                {% endif %}
+            </div>
+            <div class="ui divider"></div>
+            {% if autodial %}
+            <div class="form-output">
+                <div class="output_translation">
+                    <h1>Созданные файлы в папке</h1>
+
+                    {# autodial #}
+                    <ul class="ul_left">
+                        {% for k in autodial['folders'] %}
+                        <li>folders: {{k}}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="ul_left">
+                        {% for k in autodial['files'] %}
+                        <li>Посмотреть: <a href="/auto/shows/?q={{k}}" target="_blank">{{k}}</a></li>
+                        <li>Скачать: <a href="/auto/shows/?q={{k}}" target="_blank" download="{{k}}"
+                                        onclick="return confirm('Скачать файл?');">{{k}}</a></li>
+                        {% endfor %}
+                        <li><label>Скачать все файлы архивом:
+                            <a href="/auto/image_from_id/txt"
+                               target="_blank" onclick="return confirm('Скачать файлы?');">archive.zip</a></label></li>
+                    </ul>
+
+                </div>
+            </div>
+            {% endif %}
+            <div class="divbottom"></div>
+        </form>
+
+    </div>
+
+    <div id="speech" class="abs block">
+        <a href="#speech">#СинтезЯндекс</a>
+        <!--<b><a href="#two">#СинтезТекст</a></b>-->
+
+        <h2>Создать голосовой файл</h2>
+
+        <form action="/auto/textarea" method="post">
+            <label>Пример текста</label>
+            <ul>
+                <li class="block_text">Внимание! Уведомляем Вас об имеющейся задолженности, за холодное водоснабжение и водоотведение по
+                    лицевому счёту:<\break time='1s' /></li>
+                <li class="block_text">перед МУП «Водоканал» города Иркутска, в сумме:<\break time="1s"/></li>
+                <li class="block_text">Убедительно просим оплатить задолженность в полном объеме! Более подробную информацию Вы можете
+                    получить по телефону 21<\break time="1s"/>46<\break time="1s"/>46</li>
+            </ul>
+            <div class="form-input">
+                <!--<main>-->
+                <center><label for="TextareaInput">Введите текст</label></center>
+                <!-- -->
+                <textarea class="form-control txta" name="Input_text" id="TextareaInput" rows="3"></textarea>
+                <!--<textarea cols="30" rows="5" style="resize: none; overflow-y: hidden; position: absolute; top: 0px; left: -9999px; height: 0px; width: 400px; line-height: normal; text-decoration: none solid rgb(0, 0, 0); letter-spacing: normal;" tabindex="-1"></textarea>
+                <textarea id="example-seven" cols="30" rows="5" style="resize: none; overflow-y: hidden; height: 95px;"></textarea>-->
+                <!--</main>-->
+            </div>
+            <div class="ui divider"></div>
+
+            <div class="selection list">
+                <center><label for="format">Выбрать имя файла:</label></center>
+                <select name="files" id="filename">
+                    <option value="1_300_3000_persons">1_300_3000_persons</option>
+                    <option value="2_300_3000_persons">2_300_3000_persons</option>
+                    <option value="3_300_3000_persons">3_300_3000_persons</option>
+                    <option value="1_3000_persons">1_3000_persons</option>
+                    <option value="2_3000_persons">2_3000_persons</option>
+                    <option value="3_3000_persons">3_3000_persons</option>
+                    <option value="1_legal">1_legal</option>
+                    <option value="2_legal">2_legal</option>
+                    <option value="3_legal">3_legal</option>
+                    <option selected="selected" value="for_all">for_all</option>
+                    <option value="nerab">nerab</option>
+                    <option value="service">service</option>
+                    <option value="tmp_file">tmp_file</option>
+                </select>
+            </div>
+            <!-- <div class="ui divider"></div> -->
+
+            <div class="selection list">
+                <center><label for="format">Выбрать формат:</label></center>
+                <select name="forms" id="format">
+                    <option value="ogg">Ogg data, Opus audio</option>
+                    <option value="raw">Wav</option>
+                </select>
+            </div>
+            <!-- <div class="ui divider"></div> -->
+
+            <div class="selection list">
+                <center><label for="voice">Выбрать голос:</label></center>
+                <center><select name="voics" id="voice">
+                    <option value="filipp">Филипп</option>
+                    <option value="alena">Алёна</option>
+                </select></center>
+            </div>
+            <!-- <div class="ui divider"></div> -->
+
+            <div class="selection list">
+                <label for="voice">Синтезировать голос:</label>
+                <button type="Submit" class="button">Синтезировать</button>
+            </div>
+            <div style="
+            overflow: hidden;
+            overflow: overlay;
+            width: 100%;
+            padding: 10px;
+        ">
+
+            </div>
+            <div class="ui divider"></div><!--  -->
+            <div class="selection list list_width">
+                <h1>Прослушать файл</h1>
+                <a href="/auto/shows/?q={{ filenames.rsplit('/tmp/')[1].replace('/', '').replace('ogg', 'wav') }}"
+                   id="filenames" target="_blank">
+                    {{ filenames.rsplit('/tmp/')[1].replace('/', '').replace('ogg', 'wav') }}</a>
+            </div>
+            <div class="ui divider"></div>
+            {% if list_dir %}
+            <div class="form-output">
+                <div class="output_translation">
+                    <h1>Созданные файлы в папке tmp</h1>
+
+                    {# list_dir #}
+                    <ul class="ul_left">
+                        {% for k in list_dir['folders'] %}
+                        <li>Папки: {{k}}</li>
+                        {% endfor %}
+                    </ul>
+                    <ul class="ul_left">
+                        {% for k in list_dir['files'] %}
+                        <li>Файлы: <a href="/auto/shows/?q={{k}}" target="_blank">{{k}}</a></li>
+                        {% endfor %}
+                        <li>Скачать все файлы архивом: <a href="/auto/image_from_id/audio" target="_blank"
+                                                          onclick="return confirm('Скачать аудиофайлы?');">archive.zip</a></li>
+                    </ul>
+
+                </div>
+            </div>
+            {% endif %}
+        </form>
+
+        <!--<main>
+            <h2>Textarea Auto-Resize with JavaScript</h2>
+
+            <textarea placeholder="Type many lines of texts in here and you will see magic stuff" class="txta"></textarea>
+
+            &lt;!&ndash; Uncomment this to see multiple textareas in action &ndash;&gt;
+            &lt;!&ndash; <textarea placeholder="Type many lines of texts in here and you will see magic stuff" class="txta common"></textarea>&ndash;&gt;
+
+        </main>-->
+    </div>
+
+</div>
+
+</body>
+</html>

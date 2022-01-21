@@ -1,0 +1,380 @@
+<!--
+  ~ Copyright (c) 2021.
+  ~ Projects from AndreyM
+  ~ The best encoder in the world!
+  ~ email: muraig@ya.ru
+  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/static/apple.css" rel="stylesheet">
+    <script src="/static/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="/static/semantic-ui-css/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="/static/semantic-ui-css/semantic.min.js"></script>
+    <script src="/static/js/txta.js"></script>
+
+    <style type="text/css">
+    .back {
+      width: 600px;
+      height: 360px;
+      background: #ccc;
+    }
+    .abs {
+      position: absolute;
+    }
+    .block {
+      top: 26px;
+      left: 50px;
+      right: 40px;
+      bottom: 20px;
+      display: none;
+    }
+    ul.circle {
+      list-style-type:none;
+      top: 284px;
+      left: 98px;
+    }
+    ul {
+      list-style-type:none;
+      top: 273px;
+      left: 114px;
+      padding-left: 10px;
+    }
+    li {
+      //font-size: 24px;
+      display: inline;
+      padding-right: 36px;
+    }
+    ul.circle li {
+      border-radius: 30px;
+      background-color: #fff;
+      border: 2px solid #222;
+      font-size: 28px;
+      padding-right: 56px;
+      padding-top: 24px;
+      margin-right: 10px;
+      display: inline;
+    }
+    a {
+      text-decoration: none;
+      color: #222;
+      margin-right: 20px;
+    }
+    a:hover {
+      color: #000;
+    }
+    a:visited {
+      font-weight: bold;
+    }
+    .tabs {
+      background: #ededed;
+      font-family: monostace;
+      top: 58px;
+      width: 520px;
+      height: 270px;
+    }
+    .tabs p {
+      top: 16px;
+      font-family: monostace;
+    }
+    p {
+      font-size: 44px;
+      font-family: monostace;
+      top: 48px;
+      left: 70px;
+      color: #aaa;
+      line-height: 44px;
+    }
+    #speech {
+      display: block;
+    }
+    #autod {
+      display: block;
+    }
+    div:target {
+      display: block;
+    }
+    div[id*=tab]:target {
+      display: block;
+    }
+    div[id*=tab]:target ~ #tab {
+      display: block;
+    }
+    div[id*=t]:target ~ #speech {
+      display: none;
+    }
+    div[id*=t]:target ~ #autod {
+      display: none;
+    }
+    .block_text {
+      display: block;
+    }
+    input, label{
+      display:block;
+    }
+    .selection.list.list_width {
+      float: none;
+    }
+    .selection.list {
+      float: left;
+      padding: 0px 10px;
+    }
+    .selection {
+    }
+    .list {
+    }
+    .form-output {
+      float: left;
+    }
+    .form-input {
+      max-width: 800px;
+    }
+    .button {
+        //background-color: #4CAF50;
+        border: none;
+        //color: white;
+        //padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+        margin: 0px;
+        background: #4CAF50;
+    }
+    .selection button:hover {
+      background: #0078BF; color: #fff;
+    }
+    .ul_left li {
+        font-size: 14px;
+        list-style-type: none;
+        box-sizing: inherit;
+        display: inline;
+        display: block;
+        //padding-right: 36px;
+        color: #1398d0;
+    }
+    A:hover {
+      text-decoration: underline; /* Добавляем подчеркивание при наведении курсора на ссылку */
+      color: red; /* Ссылка красного цвета */
+    }
+    a {
+        display: inline-block;
+        //color:#ffeb3b;
+        color: #686868;
+        line-height: 1;
+        text-decoration:none;
+        cursor: pointer;
+        position:relative;
+        border: none;
+    }
+    a:after {
+        background-color: #ffeb3b;
+        display: block;
+        content: "";
+        height: 2px;
+        width: 0%;
+        left:50%;
+        position:absolute;
+        -webkit-transition: width .3s ease-in-out;
+        -moz--transition: width .3s ease-in-out;
+        transition: width .3s ease-in-out;
+        -webkit-transform:translateX(-50%);
+        -moz-transform:translateX(-50%);
+        transform:translateX(-50%);
+    }
+    a:hover:after,
+    a:focus:after {
+        width: 100%;
+    }
+
+    main {
+      text-align: center;
+      margin: 0 auto;
+      max-width: 800px;
+    }
+
+    textarea {
+      color: #444;
+      padding: 5px;
+    }
+
+    /* TEXTAREA AUTO RESIZE STYLES BEGIN */
+
+    /* The .hiddendiv styles are added with JS.
+       You can remove the JS lines and use CSS instead
+    .hiddendiv {
+      display: none;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }*/
+
+    /* the styles for 'txta' are applied to both the textarea and the hidden clone */
+    /* these must be the same for both */
+    .txta {
+      width: 100%;
+      max-width: 500px;
+      min-height: 100px;
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      overflow: hidden;
+      line-height: 1.4;
+      max-width: 800px;
+    }
+    /* TEXTAREA AUTO RESIZE STYLES END */
+
+
+
+
+
+
+
+    </style>
+
+</head>
+<body>
+
+<div id="autod" class="abs block">
+    <a href="#autod">#CreateAutoDial</a>
+    <!--<b><a href="#two">#СинтезТекст</a></b>-->
+
+    <h2>Создать Автообзвон</h2>
+
+    <div class="ui container">
+
+        <!-- Создание автообзвона определенного типа -->
+        <form id="startdial" method="post">
+            <div class="selection list">
+                <center><label for="typeauto">Выбрать тип обзвона:</label></center>
+                <input list="typeauto" name="typeauto" placeholder="ТипОбзвона" required type="text"/>
+                <datalist id="typeauto">
+                    <option>urliz</option>
+                    <option>fizliz</option>
+                    <option>fizlizcourt</option>
+                    <option>summer</option>
+                    <option>handover_start</option>
+                    <option>handover_end</option>
+                </datalist>
+                <input type="submit" value="ЗаказатьОбзвон">
+            </div>
+        </form>
+        <!--<div class="ui divider"></div>-->
+
+        <!-- Создание вызова по номеру телефона -->
+        <form id="data" method="post" action="/auto/phones">
+            <div class="selection list">
+                <center><label for="phone">Номер телефона:</label></center>
+                <input autocomplete="on" autofocus form="data" name="phone" placeholder="НомерТелефона" type="text"
+                       id="phone" value="{{ phone }}"/>
+                <input autocomplete="on" form="data" name="typeautodial" placeholder="ТипОбзвона" type="text"
+                       value="{{ typeautodial }}"/>
+                <input type="submit" value="НабратьНомер">
+                <!--
+                <input type="button" value="Кнопка" onclick="alert('Вы нажали кнопку!')" name="btn">
+                 -->
+            </div>
+        </form>
+        <!--<div class="ui divider"></div>-->
+
+        <!-- Создание вызова по номеру телефона -->
+        <form id="stopdial" method="post" action="/auto/stop/">
+            <div class="selection list">
+                <center><label for="autodial">Остановить обзвон:</label></center>
+                <input autocomplete="on" autofocus form="stopdial" name="autodial" placeholder="filliz" type="text"
+                       id="autodial" value="{{ autodial }}"/>
+                <input type="submit" value="Остановить">
+                <!--
+                <input type="button" value="Кнопка" onclick="alert('Вы нажали кнопку!')" name="btn">
+                 -->
+            </div>
+        </form>
+    </div>
+
+    <div class="ui divider"></div>
+    <div style="overflow: hidden;overflow: overlay;width: 100%;padding: 10px;"> </div>
+    <div class="ui divider"></div>
+    <div class="selection list ui container">
+        <center><label for="channel">Автообзвон:</label></center>
+        <div class="bordered" id="channel" style="">
+            <div class="bordered" id="descr">
+                <ul>
+                    {% for user in result %}
+                    <li>
+                        <a href="{#{ user.url }#}">
+                            {#{ user.replace("'",'"').replace(',',':')[1:-1] }#}
+                            {{ user.replace("'",'"').replace(',',':') }}
+                        </a><br/>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- здесь будут появляться входящие сообщения -->
+            <div id="messages">
+                <ul>
+                    <li class="message" style="display: none">
+                        <span class="symbol"></span><span class="value"></span>
+                        <span class="time"></span>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <script>
+    var ws = new WebSocket("ws://" + location.hostname + ":8888/events");
+    //var ws = new WebSocket("ws://" + location.hostname + ":8765/events");
+    var messages = document.getElementById('messages');
+    var message = document.createElement('ul');
+    message.className= "event";
+    messages.appendChild(message);
+    ws.onmessage = function(event) {
+        var messages = document.querySelector("div#messages ul.event")
+        var messag = document.createElement('li')
+        messag.className= "message";
+
+        var messa = document.createElement('span');
+        messa.className= "symbol";
+        messag.appendChild(messa)
+        var mess = document.createElement('span');
+        mess.className= "value";
+        messag.appendChild(mess)
+
+        //
+        console.log('li:', messag);
+
+        var content = document.createTextNode(event.data)
+        //var content = document.createTextNode(event.data.split(','))
+        console.log('content:', content);
+        console.log('content[1]', content[1]);
+        document.getElementsByClassName('value').textContent = content[1];
+        console.log('span:', mess);
+
+        messag.appendChild(content)
+        messages.appendChild(messag)
+    };
+    function sendMessage(event) {
+        var ul = document.querySelectorAll('#messages ul');
+        console.log('ul:', ul);
+        this.parentNode.removeChild(ul);
+
+        var input = document.getElementById("messageText")
+        ws.send(input.value)
+        input.value = ''
+        event.preventDefault()
+    }
+
+
+
+
+
+        </script>
+    </div>
+</div>
+</body>
+</html>

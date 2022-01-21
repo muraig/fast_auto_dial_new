@@ -1,0 +1,10 @@
+{
+  "logger": {
+    "path": "log_fastapi_full_stack.log",
+    "filename": "fastapi_full_stack.log",
+    "level": "debug",
+    "rotation": "20 days",
+    "retention": "1 months",
+    "format": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> request id: {extra[request_id]} - <cyan>{name}</cyan>:<light-blue>{function}</light-blue>:<red>{line}</red> - <level>{message}</level>"
+  }
+}

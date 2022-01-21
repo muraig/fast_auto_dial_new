@@ -1,0 +1,5 @@
+**/__pycache__
+/backend/app/log_fastapi_full_stack.log
+/backend/app/logger
+/backend/log_fastapi_full_stack.log
+**/.idea
