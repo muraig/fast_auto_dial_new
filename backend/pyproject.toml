@@ -19,6 +19,7 @@ aiohttp = "^3.8.1"
 aiocsv = "^1.2.1"
 requests-async = "^0.6.2"
 sox = "^1.4.1"
+websockets = "^10.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7.9"
