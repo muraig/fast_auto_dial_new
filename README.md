@@ -1,4 +1,4 @@
-# auto_dial
+# fast_auto_dial
 
 ## Как пользоваться
 
