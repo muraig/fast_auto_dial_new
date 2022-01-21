@@ -1,8 +1,9 @@
 # ##############################################################################
 #  Copyright (c) 2021.                                                         #
+# 
 #  Projects from AndreyM                                                       #
 #  The best encoder in the world!                                              #
-#  email: muraig@ya.ru                                                         #
+#  email: muraigtor@gmail.com                                                         #
 # ##############################################################################
 import logging
 import logging.config

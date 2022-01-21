@@ -4,9 +4,11 @@
 Файл маршрутов для FastAPI приложения
 """
 # ##############################################################################
-#  Copyright (c) 2021. Projects from AndreyM                                   #
+#  Copyright (c) 2021.
+# 
+#  Projects from AndreyM                                   #
 #  The best encoder in the world!                                              #
-#  email: muraig@ya.ru                                                         #
+#  email: muraigtor@gmail.com                                                         #
 # ##############################################################################
 import os
 import json
